@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [messages, setMessages] = useState([]); // controlar o chat
+  const [text, setText] = useState(''); // controlar o input
+
+  async function handleSend() {
+    if (text.trim() === '') return;
+
+    const userMessage = {
+      author: 'user',
+      text: text,
+    };
+    setMessages((prev) => [...prev, userMessage]);
+    setText('');
+
+    const response = await fetch('http://localhost:3000/message', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text }),
+    });
+
+    const data = await response.json();
+
+    const botMessage = {
+      author: 'bot',
+      text: data.reply,
+    };
+
+    setMessages((prev) => [...prev, botMessage]);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <h1>ChatBot</h1>
 
-export default App
+      <div>
+        {messages.map((msg, index) => (
+          <p key={index}>
+            <strong> {msg.author}: </strong> {msg.text}
+          </p>
+        ))}
+      </div>
+
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Digite sua mensagem"
+      />
+
+      <button onClick={handleSend}>Enviar</button>
+    </div>
+  );
+}
