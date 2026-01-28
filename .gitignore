@@ -6,3 +6,20 @@ npm-debug.log*
 
 dist
 build
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+package-lock.json
+yarn.lock
