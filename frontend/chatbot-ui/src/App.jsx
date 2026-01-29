@@ -1,20 +1,11 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
+import ChatWindow from './components/ChatWindow';
+import ChatInput from './components/ChatInput';
 
 export default function App() {
   const [messages, setMessages] = useState([]); // controlar o chat
   const [text, setText] = useState(''); // controlar o input
   const [isTyping, setIsTyping] = useState(false);
-
-  const messageEndRef = useRef(null); // referencia para o fim do chat
-  const inputRef = useRef(null);
-
-  function scrollToBottom() {
-    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
 
   async function handleSend() {
     if (text.trim() === '') return;
@@ -40,7 +31,6 @@ export default function App() {
       ]);
     } finally {
       setIsTyping(false);
-      inputRef.current?.focus();
     }
   }
 
@@ -49,38 +39,14 @@ export default function App() {
       <h1>ChatBot</h1>
 
       <div className="chat-box">
-        <div className="chat-container">
-          {messages.map((message, index) => (
-            <div key={index} className={`message ${message.sender}`}>
-              {message.text}
-            </div>
-          ))}
+        <ChatWindow messages={messages} isTyping={isTyping} />
 
-          {isTyping && <div className="message bot typing">Digitando...</div>}
-
-          <div ref={messageEndRef} />
-        </div>
-
-        <div className="chat-input">
-          <input
-            ref={inputRef}
-            type="text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Digite sua mensagem"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleSend();
-                setText('');
-                inputRef.current?.focus();
-              }
-            }}
-          />
-
-          <button onClick={handleSend} disabled={isTyping}>
-            Enviar
-          </button>
-        </div>
+        <ChatInput
+          text={text}
+          setText={setText}
+          onSend={handleSend}
+          disabled={isTyping}
+        />
       </div>
     </div>
   );
