@@ -4,8 +4,9 @@ Projeto fullstack de um chatbot demonstrativo que implementa uma arquitetura cli
 
 ## Objetivo
 
-Este projeto é um **chatbot demonstrativo** que ilustra a arquitetura cliente-servidor. 
+Este projeto é um **chatbot demonstrativo** que ilustra a arquitetura cliente-servidor.
 Fornece uma base para:
+
 - Explorar React com componentes reutilizáveis
 - Implementar API REST com Express
 - Expandir com lógica de IA ou processamento de linguagem natural
@@ -28,7 +29,7 @@ Fornece uma base para:
 
 - API REST
 
-## 📋 Arquitetura Frontend
+## Arquitetura Frontend
 
 O frontend foi refatorado em componentes reutilizáveis:
 
@@ -42,7 +43,7 @@ src/
 └── main.jsx
 ```
 
-## 🔄 Fluxo da Aplicação
+## Fluxo da Aplicação
 
 1. Usuário digita mensagem no `ChatInput`
 2. Ao clicar "Enviar" ou pressionar Enter, `App.jsx` envia POST para a API
@@ -50,7 +51,21 @@ src/
 4. `ChatWindow` renderiza a mensagem e faz scroll automático
 5. Auto-focus volta para o input após a resposta
 
-## 🚀 Como Rodar
+## Como Rodar
+
+### Pré-requisitos
+
+- Node.js instalado
+- Git instalado
+
+### Instalação
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/seu-usuario/chatbot-project.git
+cd chatbot-project
+```
 
 ### Backend
 
@@ -72,7 +87,7 @@ npm run dev
 
 A aplicação rodará em `http://localhost:5173`
 
-## ✨ Recursos
+## Recursos
 
 - ✅ Chat em tempo real
 - ✅ Auto-scroll para novas mensagens
@@ -82,7 +97,7 @@ A aplicação rodará em `http://localhost:5173`
 - ✅ Interface responsiva e centrada
 - ✅ Tratamento de erros
 
-## 📝 Notas
+## Notas
 
 - Certifique-se de que o backend está rodando antes de iniciar o frontend
 - O projeto usa CORS para permitir requisições entre domínios
