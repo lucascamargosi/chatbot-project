@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 export default function ChatWindow({ messages, isTyping }) {
-  const messageEndRef = useRef(null);
+  const messageEndRef = useRef(null); // referência para auto-scroll
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });

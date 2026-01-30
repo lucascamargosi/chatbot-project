@@ -1,20 +1,22 @@
 import { useRef, useEffect } from 'react';
 
 export default function ChatInput({ text, setText, onSend, disabled }) {
-  const inputRef = useRef(null);
+  const inputRef = useRef(null); //referência para foco no input
 
+  // auto-focus após enviar
   useEffect(() => {
     if (!disabled) {
       inputRef.current?.focus();
     }
   }, [disabled]);
 
-  function handleKeyDown(e) {
+  // enviar com 'enter'
+  function handleKeyDown(e) {  
     if (e.key === 'Enter') {
       onSend();
     }
   }
-
+  // enviar com button
   function handleClick() {
     onSend();
   }

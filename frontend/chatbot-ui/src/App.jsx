@@ -3,15 +3,15 @@ import ChatWindow from './components/ChatWindow';
 import ChatInput from './components/ChatInput';
 
 export default function App() {
-  const [messages, setMessages] = useState([]); // controlar o chat
-  const [text, setText] = useState(''); // controlar o input
+  const [messages, setMessages] = useState([]); // historico do chat
+  const [text, setText] = useState(''); // texto do input (armazena o que o usuário está digitando)
   const [isTyping, setIsTyping] = useState(false);
 
   async function handleSend() {
-    if (text.trim() === '') return;
+    if (text.trim() === '') return;  //validacao
 
-    setMessages((prev) => [...prev, { text, sender: 'user' }]);
-    setText('');
+    setMessages((prev) => [...prev, { text, sender: 'user' }]); // adiciona msg user
+    setText(''); // limpa input
     setIsTyping(true);
 
     try {
@@ -21,9 +21,9 @@ export default function App() {
         body: JSON.stringify({ text }),
       });
 
-      const data = await response.json();
+      const data = await response.json();  // backend processa
 
-      setMessages((prev) => [...prev, { text: data.reply, sender: 'bot' }]);
+      setMessages((prev) => [...prev, { text: data.reply, sender: 'bot' }]); // adiciona a resposta do bot ao histórico 
     } catch {
       setMessages((prev) => [
         ...prev,
